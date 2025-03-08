@@ -1,0 +1,331 @@
+/* Définition des variables CSS pour la palette de couleurs et effets de verre */
+:root {
+    --color-primary: #ffafcc;
+    --color-secondary: #ff5d8f;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-blur: 8px;
+    --shine-color: rgba(255, 255, 255, 0.4);
+    --glow-color: rgba(255, 175, 204, 0.3);
+}
+/* Réinitialisation des marges et paddings pour tous les éléments */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Animation scintillante pour l'effet d'arrière-plan */
+@keyframes sparkle {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}
+/* Effet de particules scintillantes en fond */
+.sparkles {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        radial-gradient(circle at 20% 30%, white 1px, transparent 1px),
+        radial-gradient(circle at 80% 40%, white 1px, transparent 1px),
+        radial-gradient(circle at 40% 70%, white 1px, transparent 1px),
+        radial-gradient(circle at 60% 20%, white 1px, transparent 1px);
+    background-size: 100% 100%;
+    animation: sparkle 4s infinite;
+    opacity: 0.3;
+    pointer-events: none;
+}
+/* Style global du body */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+}
+/* Thème sombre */
+body.dark-theme {
+    background-color: #2e2e2e;
+    color: #f7f7f7;
+}
+/* Style général du header */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background:#ff5d8f; /* Bleu océan avec transparence */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    backdrop-filter: blur(5px); /* Effet de verre */ /* Bordure légère pour séparer le header du reste */
+}
+
+.header-content h1 {
+    font-family: 'Arial', sans-serif;
+    font-size: 2.5em;
+    color: white; /* Couleur sombre pour le titre */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.header-content p {
+    font-family: 'Arial', sans-serif;
+    font-size: 1.2em;
+    color: #666; /* Couleur plus claire pour la description */
+    margin-top: 0;
+}
+
+@media (max-width: 600px) {
+    /* Responsivité : Adapter le texte pour les écrans plus petits */
+    .header-content h1 {
+        font-size: 2em;
+    }
+
+    .header-content p {
+        font-size: 1em;
+    }
+}
+
+/* Conteneur principal avec effet de verre */
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 2rem;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.2),
+        inset 0 0 32px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Footer fixe en bas de la page */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background:#ff5d8f; /* Bleu océan avec transparence */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    backdrop-filter: blur(5px); /* Effet de verre */
+}
+
+.fixed-footer .footer-links {
+    margin-top: 5px;
+}
+
+.fixed-footer .footer-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.fixed-footer .footer-link:hover {
+    color:#ff5d8f; /* Bleu clair au survol */
+}
+/* Bouton de changement de thème */
+.theme-toggle {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+/* Effet de brillance et lueur sur le profil */
+.profile-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 2rem auto;
+    cursor: pointer;
+}
+
+.profile-shine {
+    position: absolute;
+    inset: -10%;
+    background: linear-gradient(45deg, transparent, var(--shine-color), transparent);
+    opacity: 0;
+    transition: all 0.5s ease;
+    transform: translateX(-100%) rotate(45deg);
+}
+
+.profile-glow {
+    position: absolute;
+    inset: -15%;
+    background: radial-gradient(circle at center, var(--glow-color), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.profile-container:hover .profile-shine {
+    opacity: 1;
+    transform: translateX(100%) rotate(45deg);
+}
+
+.profile-container:hover .profile-glow {
+    opacity: 1;
+}
+/* Style de l'image de profil */
+.profile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--glass-border);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+/* Animation au survol de l'image de profil */
+.profile-container:hover .profile-image {
+    transform: scale(1.05);
+}
+
+.profile-container:hover .profile-image img {
+    transform: scale(1.1);
+}
+
+.profile-info {
+    text-align: center;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+.profile-bio {
+    opacity: 0.8;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+/* Liens et boutons */
+.link-button {
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.button-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--shine-color),
+        transparent
+    );
+    transition: 0.5s;
+}
+/* Effet de brillance au survol des boutons */
+.link-button:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.link-button:hover .button-shine {
+    left: 100%;
+}
+/* Icônes de réseaux sociaux */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--shine-color), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.social-link:hover {
+    transform: translateY(-2px) scale(1.1);
+}
+
+.social-link:hover::before {
+    opacity: 1;
+}
+/* Adaptation du style pour les écrans plus petits */
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+    }
+    
+    .profile-container {
+        width: 120px;
+        height: 120px;
+    }
+}
